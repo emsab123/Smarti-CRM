@@ -44,10 +44,12 @@ The aim was to develop a straightforward system that demonstrates how business i
 
 - `app.py` – Main application and user interface.
 - `database.py` – Database operations and data management.
-- `smarti.db` – Local SQLite database.
+- `smarti.db` – Local SQLite database, automatically created when the application first runs.
 - `requirements.txt` – Python dependencies.
 - `README.md` – Project documentation.
 - `.gitignore` – Specifies files excluded from version control.
+
+The database file is generated locally and is not included in the Git repository. This means each new installation starts with an empty database.
 
 ## 5. Getting Started
 
@@ -88,6 +90,12 @@ python -m streamlit run app.py
 
 `http://localhost:8501`
 
+### Database and Test Data
+
+The SQLite database and its tables are created automatically when the application first runs. No separate database setup is required.
+
+The application does not include preloaded sample data. Users can create fictional customer and staff records through the interface to test the main functionality.
+
 ## 6. Database Structure
 
 The application uses SQLite to store information locally.
@@ -113,6 +121,8 @@ SQLite was selected because it provides a lightweight relational database withou
 Appointments and jobs were combined into one workflow. This simplifies the system because an appointment can be treated as a scheduled job assigned to a member of staff.
 
 The application uses separate files for the interface and database operations to make the code easier to understand and maintain.
+
+Alternative approaches were considered. Flask or Django could have been used to develop the web application, but Streamlit was selected because it allowed the main functionality to be developed more quickly with a simpler structure. A database server such as PostgreSQL could also have been used, but SQLite was more appropriate for this small, local prototype.
 
 ## 8. Development Process
 
