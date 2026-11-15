@@ -196,32 +196,32 @@ elif page == "Staff":
         with tab2:
             staff = db.get_staff()
 
-        if staff:
-            st.dataframe(
-                pd.DataFrame(
+            if staff:
+                st.dataframe(
+                    pd.DataFrame(
+                        staff,
+                        columns=["Staff ID", "Name", "Role"]
+                    ),
+                    use_container_width=True,
+                    hide_index=True
+                )
+
+                selected_staff = st.selectbox(
+                    "Select staff member to delete",
                     staff,
-                    columns=["Staff ID", "Name", "Role"]
-                ),
-                use_container_width=True,
-                hide_index=True
-            )
+                    format_func=lambda s: f"{s[1]} - {s[2]} (ID: {s[0]})"
+                )
 
-            selected_staff = st.selectbox(
-                "Select staff member to delete",
-                staff,
-                format_func=lambda s: f"{s[1]} - {s[2]} (ID: {s[0]})"
-            )
+                if st.button("Delete Staff Member"):
+                    try:
+                        db.delete_staff(selected_staff[0])
+                        st.success("Staff member deleted.")
+                        st.rerun()
+                    except ValueError as e:
+                        st.error(str(e))
 
-            if st.button("Delete Staff Member"):
-                try:
-                    db.delete_staff(selected_staff[0])
-                    st.success("Staff member deleted.")
-                    st.rerun()
-                except ValueError as e:
-                    st.error(str(e))
-
-        else:
-            st.info("No staff members registered yet.")
+            else:
+                st.info("No staff members registered yet.")
 
 
 # JOBS AND APPOINTMENTS
